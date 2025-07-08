@@ -1,4 +1,6 @@
+
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -6,14 +8,36 @@ public class Player : MonoBehaviour
     public AudioSource audioSource;
     public AudioClip collectSound;
 
+    public GameObject fireballPrefab;
+    public Transform attackPoint;
+
+    void Update()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            Instantiate(fireballPrefab, attackPoint.position, attackPoint.rotation);
+        }
+
+    }
+
     // 2. Здоров`я гравця (Поля)
     private int health = 10;
+    public AudioClip damageSound;
 
     // 2. Отримання урону (Метод)
     public void TakeDamage(int damage)
     {
         health -= damage;
-        print("Health: " + health);
+        if (health > 0)
+        {
+            audioSource.PlayOneShot(damageSound);
+            print("Health: " + health);
+        }
+        else
+        {
+            int sceneIndex = SceneManager.GetActiveScene().buildIndex;
+            SceneManager.LoadScene(sceneIndex);
+        }
     }
 
     public void CollectCoins() 
