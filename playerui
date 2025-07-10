@@ -1,0 +1,25 @@
+using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine.UI;
+using TMPro;
+
+public class PlayerUI : MonoBehaviour
+{
+
+    public Player player;
+    public TextMeshProUGUI coinsConuterText;
+    public Slider healthSlider;
+    public Player coins;
+
+    // Update is called once per frame
+    void Update()
+    {
+        //Оновлення значення здоров'я
+        healthSlider.maxValue = player.maxHealth;
+        healthSlider.value = player.health;
+
+        //Оновлення тексту про кількість зіб. монет.
+        coinsConuterText.text = player.coins.ToString();
+    }
+}
